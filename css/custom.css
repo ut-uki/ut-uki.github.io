@@ -1,5 +1,5 @@
 .bg-light {
-  background-color: #1668d2 !important;
+  background-color: #4b8ce0 !important;
 }
 
 .main-contents {
@@ -41,4 +41,11 @@ footer .container-fluid {
 footer p {
   width: 100%;
   text-align: center;
+}
+
+footer a {
+  color: black!important;
+  text-align: left;
+  width: 100%;
+  font-size: 5px!important;
 }

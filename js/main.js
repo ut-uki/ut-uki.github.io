@@ -55,7 +55,6 @@ function make_data_lists() {
   for (let i =1; i < database.length; i++){
     if(database[i][4] !== "") {
       let related = database[i][4].split("　")
-      console.log(related)
       related.forEach(function (val) {
         if (!relatedList.includes(val)) relatedList.push(val)
       });
