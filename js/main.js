@@ -134,7 +134,7 @@ function make_accordion(data, num) {
   tag_div3.appendChild(tag_strong)
 
   let tag_p = document.createElement('p');
-  tag_p.textContent =  data[8] + " (" + data[8].length + ")";
+  tag_p.textContent =  data[9] + " (" + data[9].length + ")";
   tag_div3.appendChild(tag_p)
 
   let tag_div4 = document.createElement('div');

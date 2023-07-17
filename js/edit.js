@@ -126,12 +126,12 @@ function make_accordion(data, num) {
   let tag_input = document.createElement("textarea");
   tag_input.className = "text-box"
   tag_input.type = "text";
-  tag_input.value = data[8]
+  tag_input.value = data[9]
   tag_form.appendChild(tag_input)
 
   let tag_div6 = document.createElement('div');
   tag_div6.style= "text-align:right; font-size: 13px; margin-bottom: 0;"
-  tag_div6.textContent =  " (" + data[8].length + ")  ";
+  tag_div6.textContent =  " (" + data[9].length + ")  ";
   tag_div3.appendChild(tag_div6)
   let tag_button1 = document.createElement('button');
   tag_button1.className = "btn btn-success"
