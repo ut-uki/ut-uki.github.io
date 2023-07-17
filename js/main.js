@@ -124,6 +124,7 @@ function make_accordion(data, num) {
   // tag_div2.setAttribute("data-bs-parent", "#accordionExample");
   tag_div1.appendChild(tag_div2);
 
+  // accordion-body
   let tag_div3 = document.createElement('div');
   tag_div3.className = "accordion-body";
   tag_div2.appendChild(tag_div3);
@@ -146,8 +147,14 @@ function make_accordion(data, num) {
   tag_a1.addEventListener('click', function(){print_list(N, data[3], "")});
   tag_div4.appendChild(tag_a1)
 
+  let tag_div6 = document.createElement('div');
+  tag_div6.style = "width :50%; font-size:8px; display:inline-block"
+  tag_div6.textContent = "source:" + data[6] + (data[5] === "" ? "" : ("\n出題 :" + data[5]));
+  tag_div3.appendChild(tag_div6)
+
   let tag_div5 = document.createElement('div');
   tag_div5.className = "genre";
+  tag_div5.style = "width:50%; display:inline-block;";
   tag_div5.textContent = "関連:";
   tag_div3.appendChild(tag_div5);
   let related_list = data[4].split("　");
