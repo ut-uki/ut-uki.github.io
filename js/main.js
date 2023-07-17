@@ -116,7 +116,10 @@ function make_list(n) {
   }
 }
 
-console.log(arrayShuffle([1,2,3,4,5]))
+function initialize(){
+  make_list(20);
+}
+
 // result = read_csv("js/心理学単語帳v1.csv").slice(1,10)
 
 // var form = document.forms.myform;
@@ -126,6 +129,8 @@ console.log(arrayShuffle([1,2,3,4,5]))
 // for (let i = 1; i < 20; i++) {
 //     make_accordion(result[i], i)
 // }
-make_list(10)
+initialize()
+
+
 
 

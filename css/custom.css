@@ -6,17 +6,36 @@
   padding: 20px;
 }
 
-.footer {
-
-  text-align: right;
-  color: white;
+.accordion{
+  margin-top: 20px;
 }
+
+.accordion-body{
+  overflow: hidden;
+}
+.accordion-body p {
+  margin-top: 5px;
+}
+
 .genre {
-  padding: 10px;
-  font-size: 10px;
+  float: right;
+  padding: 5px;
+  font-size: 13px;
   text-decoration: none;
 }
 .genre a {
   text-decoration: none;
   color: #555555;
+}
+
+footer {
+  display: flex;
+  color: white;
+  font-size: 10px;
+}
+footer .navbar {
+  width: 100%;
+}
+footer .container-fluid {
+  width: 20%;
 }
