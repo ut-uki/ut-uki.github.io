@@ -2,6 +2,17 @@
   background-color: #4b8ce0 !important;
 }
 
+.text-box {
+  display: inline-block;
+  width: 100%;
+  padding: 0.5em;
+  box-sizing: border-box;
+  border-color: #ccc;
+  border-radius: 0;
+  background: #eee;
+  height: 100px;
+}
+
 .main-contents {
   padding: 20px;
 }
@@ -44,8 +55,8 @@ footer p {
 }
 
 footer a {
-  color: black!important;
+  color: #212121!important;
+  text-decoration: none;
   text-align: left;
-  width: 100%;
   font-size: 5px!important;
 }

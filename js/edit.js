@@ -28,20 +28,6 @@ function in_includes(list, str){
   return false
 }
 
-function arrayShuffle(array) {
-  for(let i = (array.length - 1); 0 < i; i--){
-
-    // 0〜(i+1)の範囲で値を取得
-    let r = Math.floor(Math.random() * (i + 1));
-
-    // 要素の並び替えを実行
-    let tmp = array[i];
-    array[i] = array[r];
-    array[r] = tmp;
-  }
-  return array;
-}
-
 function make_data_lists() {
   let returnLists = []
 
@@ -132,10 +118,29 @@ function make_accordion(data, num) {
   tag_strong.textContent = data[2]
   tag_div3.appendChild(tag_strong)
 
-  let tag_p = document.createElement('p');
-  tag_p.textContent =  data[8] + " (" + data[8].length + ")";
-  tag_div3.appendChild(tag_p)
+  // text area
+  let tag_form = document.createElement("form");
+  tag_form.name = "form"+num;
+  tag_div3.appendChild(tag_form);
 
+  let tag_input = document.createElement("textarea");
+  tag_input.className = "text-box"
+  tag_input.type = "text";
+  tag_input.value = data[8]
+  tag_form.appendChild(tag_input)
+
+  let tag_div6 = document.createElement('div');
+  tag_div6.style= "text-align:right; font-size: 13px; margin-bottom: 0;"
+  tag_div6.textContent =  " (" + data[8].length + ")  ";
+  tag_div3.appendChild(tag_div6)
+  let tag_button1 = document.createElement('button');
+  tag_button1.className = "btn btn-success"
+  tag_button1.type = "button";
+  tag_button1.textContent = "Submit";
+  tag_button1.addEventListener("click", function (){})
+  tag_div6.appendChild(tag_button1)
+
+  //ジャンルと関連
   let tag_div4 = document.createElement('div');
   tag_div4.className = "genre";
   tag_div4.textContent = "ジャンル:";
@@ -186,18 +191,11 @@ function print_list(n, genre="", related="", name="") {
     title.push(name)
   }
 
-  if (document.getElementById("flexSwitchCheckChecked").checked){
-    results = arrayShuffle(results.slice())
-    title.push("ランダム")
-  } else{
-    results = results.slice().sort()
-  }
-
   for (let i = 0; i < results.length; i++) {
     make_accordion(results[i], i+1)
   }
 
-  let title_text = "単語リスト"
+  let title_text = "単語リスト(編集)"
   let title_add = " (" + title.reverse().join(", ") + ")"
   title_text += title.length===0 ? "" : title_add;
   document.getElementById("page-title").textContent = title_text;
@@ -222,16 +220,10 @@ function search(){
   }
 }
 
-
 const database = read_csv("js/心理学単語帳v2.csv")
 const N = 20
 const Lists = make_data_lists()
+
 initialize(Lists[2])
+
 print_list(N)
-
-
-
-// let thelist = [["a","b"],["a","c"],["a b","c d"],["a m d","k i c"]]
-// console.log(thelist);
-// console.log(in_includes(thelist,"b"));
-// console.log(in_includes(Lists[1], "アセチル"))
