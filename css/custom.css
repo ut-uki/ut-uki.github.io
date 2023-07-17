@@ -1,5 +1,5 @@
 .bg-light {
-  background-color: #b3d4fc!important;
+  background-color: #1668d2 !important;
 }
 
 .main-contents {
@@ -10,21 +10,20 @@
   margin-top: 20px;
 }
 
-.accordion-body{
-  overflow: hidden;
-}
 .accordion-body p {
   margin-top: 5px;
 }
 
 .genre {
-  float: right;
+  width: 100%;
+  text-align: right;
   padding: 5px;
   font-size: 13px;
   text-decoration: none;
 }
 .genre a {
   text-decoration: none;
+  margin-left: 5px;
   color: #555555;
 }
 
@@ -37,5 +36,9 @@ footer .navbar {
   width: 100%;
 }
 footer .container-fluid {
-  width: 20%;
+  width: 100%;
+}
+footer p {
+  width: 100%;
+  text-align: center;
 }

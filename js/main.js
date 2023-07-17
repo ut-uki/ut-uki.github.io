@@ -23,6 +23,68 @@ function read_csv(filename) {
   return csvArray
 }
 
+function in_includes(list, str){
+  for (let i=0; i< list.length; i++){
+    if (list[i].includes(str)) return true;
+  }
+  return false
+}
+
+function make_data_lists() {
+  let returnLists = []
+
+  let nameList0 = [];
+  for (let i =1; i < database.length; i++){
+    if(database[i][0] !== "") nameList0.push(database[i][0]);
+  }
+  returnLists.push(nameList0.sort());
+
+  let nameList1 = [];
+  for (let i =1; i < database.length; i++){
+    if(database[i][1] !== "") nameList1.push(database[i][1]);
+  }
+  returnLists.push(nameList1.sort());
+
+  let genreList = [];
+  for (let i =1; i < database.length; i++){
+    if (database[i][3] !== "" && !genreList.includes(database[i][3])) genreList.push(database[i][3]);
+  }
+  returnLists.push(genreList.sort());
+
+  let relatedList = [];
+  for (let i =1; i < database.length; i++){
+    if(database[i][4] !== "") {
+      let related = database[i][4].split("　")
+      console.log(related)
+      related.forEach(function (val) {
+        if (!relatedList.includes(val)) relatedList.push(val)
+      });
+    }
+  }
+  returnLists.push(relatedList.sort());
+
+  return returnLists
+}
+
+function initialize(genreList) {
+  //ジャンルリスト生成
+  const tag_ul = document.getElementById("genre-list")
+  for (let i=0; i< genreList.length; i++){
+    let tag_li = document.createElement("li");
+    tag_ul.appendChild(tag_li)
+
+    let tag_a = document.createElement("a")
+    tag_a.className = "dropdown-item";
+    tag_a.href = "#";
+    tag_a.addEventListener("click", function(){print_list(N, genreList[i])});
+    tag_a.textContent = genreList[i];
+    tag_li.appendChild(tag_a)
+  }
+// 　フォーム生成
+  let form = document.getElementById("input-form")
+  form.children[1].addEventListener("click", function(){search()})
+}
+
 function make_accordion(data, num) {
 
   let tag_div1 = document.createElement('div');
@@ -70,16 +132,21 @@ function make_accordion(data, num) {
   let tag_a1 = document.createElement('a');
   tag_a1.textContent = data[3]
   tag_a1.href = "#"
+  tag_a1.addEventListener('click', function(){print_list(N, data[3], "")});
   tag_div4.appendChild(tag_a1)
 
   let tag_div5 = document.createElement('div');
   tag_div5.className = "genre";
   tag_div5.textContent = "関連:";
   tag_div3.appendChild(tag_div5);
-  let tag_a2 = document.createElement('a');
-  tag_a2.textContent = data[4]
-  tag_a2.href = "#"
-  tag_div5.appendChild(tag_a2)
+  let related_list = data[4].split("　");
+  for (let i = 0; i < related_list.length; i++){
+    let tag_an = document.createElement('a');
+    tag_an.textContent = related_list[i]
+    tag_an.href = "#"
+    tag_an.addEventListener('click', function(){print_list(N, "", related_list[i])});
+    tag_div5.appendChild(tag_an)
+  }
 
 }
 
@@ -97,40 +164,77 @@ function arrayShuffle(array) {
   return array;
 }
 
-function make_list(n) {
-  accordion = document.getElementById('accordionExample');
-  clone = accordion.cloneNode(false);
+function print_list(n, genre="", related="", name="") {
+  let title = []
+  let accordion = document.getElementById('accordionExample');
+  let clone = accordion.cloneNode(false);
   accordion.parentNode.replaceChild(clone, accordion);
 
-  results = read_csv("js/心理学単語帳v2.csv").slice(1,n+1)
-  console.log(results)
+  let results = database.slice(1,n+1)
+
+  if (related !== "") {
+    results = results.filter(function(value) {
+      return in_includes(value[4].split("　"),related) || value[1] === genre;
+    });
+    title.push(related)
+  }
+
+  if(genre !== "") {
+    results = results.filter((value) =>value[3].includes(genre));
+    title.push(genre)
+  }
+
+  if(name !== ""){
+    results = results.filter((value) =>value[1].includes(name));
+    title.push(name)
+  }
 
   if (document.getElementById("flexSwitchCheckChecked").checked){
-    results_ = arrayShuffle(results.slice())
+    results = arrayShuffle(results.slice())
+    title.push("ランダム")
   } else{
-    results_ = results.slice().sort()
+    results = results.slice().sort()
   }
 
-  for (let i = 0; i < n; i++) {
-    make_accordion(results_[i], i+1)
+  for (let i = 0; i < results.length; i++) {
+    make_accordion(results[i], i+1)
+  }
+
+  let title_text = "単語リスト"
+  let title_add = " (" + title.reverse().join(", ") + ")"
+  title_text += title.length===0 ? "" : title_add;
+  document.getElementById("page-title").textContent = title_text;
+
+  return results
+}
+
+function search(){
+  let search_input = document.getElementById("input-form").children[0]
+  let search_text = search_input.value
+
+  if (in_includes(Lists[1], search_text)){
+    print_list(N, "", "", search_text)
+  } else if (in_includes(Lists[2], search_text)){
+    print_list(N, search_text, "", "")
+  } else if (in_includes(Lists[3], search_text)){
+    print_list(N, "", search_text,"")
+  } else {
+    // print_list(N)
+    search_input.value = ""
+    search_input.placeholder = "cannot find the word '"+search_text + "'"
   }
 }
 
-function initialize(){
-  make_list(20);
-}
 
-// result = read_csv("js/心理学単語帳v1.csv").slice(1,10)
-
-// var form = document.forms.myform;
-//
-// form.output.textContent = result.join("\n");
-
-// for (let i = 1; i < 20; i++) {
-//     make_accordion(result[i], i)
-// }
-initialize()
+const database = read_csv("js/心理学単語帳v2.csv")
+const N = 20
+const Lists = make_data_lists()
+initialize(Lists[2])
+print_list(N)
 
 
 
-
+// let thelist = [["a","b"],["a","c"],["a b","c d"],["a m d","k i c"]]
+// console.log(thelist);
+// console.log(in_includes(thelist,"b"));
+// console.log(in_includes(Lists[1], "アセチル"))
