@@ -11,6 +11,12 @@
   text-align: right;
   color: white;
 }
-.form-check-input .nav-link{
-
+.genre {
+  padding: 10px;
+  font-size: 10px;
+  text-decoration: none;
+}
+.genre a {
+  text-decoration: none;
+  color: #555555;
 }
