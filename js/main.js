@@ -99,7 +99,7 @@ function initialize(genreList) {
 function make_accordion(data, num) {
 
   let tag_div1 = document.createElement('div');
-  tag_div1.className = "accordion-item";
+  tag_div1.className = "accordion-item" + "";
   document.getElementById('accordionExample').appendChild(tag_div1);
 
   let tag_h2_ = document.createElement('h2');
@@ -108,7 +108,7 @@ function make_accordion(data, num) {
   tag_div1.appendChild(tag_h2_);
 
   let tag_button = document.createElement('button');
-  tag_button.className = "accordion-button collapsed";
+  tag_button.className = "accordion-button collapsed color"+data[7];
   tag_button.type = "button";
   tag_button.setAttribute("data-bs-toggle", "collapse");
   tag_button.setAttribute("data-bs-target", "#collapse"+num)
@@ -168,13 +168,19 @@ function make_accordion(data, num) {
 
 }
 
-function print_list(n, genre="", related="", name="") {
+function print_list(n, genre="", related="", name="", important="") {
   let title = []
   let accordion = document.getElementById('accordionExample');
   let clone = accordion.cloneNode(false);
   accordion.parentNode.replaceChild(clone, accordion);
 
   let results = database.slice(1,n+1)
+
+  if (important !== "") {
+    results = results.filter(function(value) {
+      return value[7].toString() === important
+    });
+  }
 
   if (related !== "") {
     results = results.filter(function(value) {
@@ -212,16 +218,19 @@ function print_list(n, genre="", related="", name="") {
   return results
 }
 
-function search(){
+function search() {
   let search_input = document.getElementById("input-form").children[0]
   let search_text = search_input.value
 
-  if (in_includes(Lists[1], search_text)){
-    print_list(N, "", "", search_text)
-  } else if (in_includes(Lists[2], search_text)){
+
+  if (["1","2","3","4","5"].includes(search_text)){
+    print_list(N, "", "", "", search_text)
+  }else if (in_includes(Lists[2], search_text)){
     print_list(N, search_text, "", "")
-  } else if (in_includes(Lists[3], search_text)){
-    print_list(N, "", search_text,"")
+  } else if (in_includes(Lists[3], search_text)) {
+    print_list(N, "", search_text, "")
+  } else if (in_includes(Lists[1], search_text)){
+    print_list(N, "", "", search_text)
   } else {
     // print_list(N)
     search_input.value = ""
@@ -231,7 +240,7 @@ function search(){
 
 
 const database = read_csv("js/心理学単語帳v2.csv")
-const N = 20
+const N = 30
 const Lists = make_data_lists()
 initialize(Lists[2])
 print_list(N)

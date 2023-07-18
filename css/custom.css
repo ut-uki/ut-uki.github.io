@@ -26,6 +26,12 @@
   margin-top: 5px;
 }
 
+.color1 { background-color: #ebffff;}
+.color2 { background-color: #ebfddc;}
+.color3 { background-color: #fff7da;}
+.color4 { background-color: #ffecd8;}
+.color5 { background-color: #ffdddd;}
+
 .genre {
   width: 100%;
   text-align: right;
