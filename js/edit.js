@@ -94,7 +94,7 @@ function make_accordion(data, num) {
   tag_div1.appendChild(tag_h2_);
 
   let tag_button = document.createElement('button');
-  tag_button.className = "accordion-button collapsed";
+  tag_button.className = "accordion-button collapsed color"+data[7];
   tag_button.type = "button";
   tag_button.setAttribute("data-bs-toggle", "collapse");
   tag_button.setAttribute("data-bs-target", "#collapse"+num)
@@ -114,9 +114,9 @@ function make_accordion(data, num) {
   tag_div3.className = "accordion-body";
   tag_div2.appendChild(tag_div3);
 
-  let tag_strong = document.createElement('strong');
-  tag_strong.textContent = data[2]
-  tag_div3.appendChild(tag_strong)
+  // let tag_strong = document.createElement('strong');
+  // tag_strong.textContent = data[2]
+  // tag_div3.appendChild(tag_strong)
 
   // text area
   let tag_form = document.createElement("form");
@@ -126,18 +126,31 @@ function make_accordion(data, num) {
   let tag_input = document.createElement("textarea");
   tag_input.className = "text-box"
   tag_input.type = "text";
-  tag_input.value = data[9]
+  tag_input.rows = 4
+  tag_input.addEventListener("keyup", ()=>{
+    tag_div7.textContent =  " (" + tag_input.value.length + ")  "
+    if (tag_input.scrollHeight > tag_input.clientHeight) {
+      tag_input.rows +=2
+    }
+  });
   tag_form.appendChild(tag_input)
 
   let tag_div6 = document.createElement('div');
-  tag_div6.style= "text-align:right; font-size: 13px; margin-bottom: 0;"
-  tag_div6.textContent =  " (" + data[9].length + ")  ";
+  tag_div6.style= "display:flex; justify-content:flex-end; align-items:center;"
   tag_div3.appendChild(tag_div6)
+  let tag_div7 = document.createElement('div');
+  tag_div7.textContent =  " (" + 0 + ")  ";
+  tag_div7.style=" font-size: 13px; margin-right: 5px;"
+  tag_div6.appendChild(tag_div7)
   let tag_button1 = document.createElement('button');
   tag_button1.className = "btn btn-success"
   tag_button1.type = "button";
-  tag_button1.textContent = "Submit";
-  tag_button1.addEventListener("click", function (){})
+  tag_button1.textContent = "Answer";
+  tag_button1.addEventListener("click", function (){
+    tag_input.value += "\n\n" + data[9]
+    tag_button1.className += " disabled"
+    while (tag_input.scrollHeight > tag_input.clientHeight) tag_input.rows +=1;
+  });
   tag_div6.appendChild(tag_button1)
 
   //ジャンルと関連
