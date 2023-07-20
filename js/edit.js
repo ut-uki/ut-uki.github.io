@@ -234,7 +234,7 @@ function search(){
 }
 
 const database = read_csv("js/心理学単語帳v2.csv")
-const N = 20
+const N = database.length - 1
 const Lists = make_data_lists()
 
 initialize(Lists[2])
