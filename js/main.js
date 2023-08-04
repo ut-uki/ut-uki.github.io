@@ -225,22 +225,26 @@ function search() {
 
   if (["1","2","3","4","5"].includes(search_text)){
     print_list(N, "", "", "", search_text)
+    search_input.placeholder = "search";
   }else if (in_includes(Lists[2], search_text)){
     print_list(N, search_text, "", "")
+    search_input.placeholder = "search";
   } else if (in_includes(Lists[3], search_text)) {
     print_list(N, "", search_text, "")
+    search_input.placeholder = "search";
   } else if (in_includes(Lists[1], search_text)){
     print_list(N, "", "", search_text)
+    search_input.placeholder = "search";
   } else {
     // print_list(N)
-    search_input.value = ""
-    search_input.placeholder = "cannot find the word '"+search_text + "'"
+    search_input.value = "";
+    search_input.placeholder = "cannot find the word";
   }
 }
 
 
-const database = read_csv("js/心理学単語帳v2.csv")
-const N = 26
+const database = read_csv("js/心理学単語帳v2.csv").filter((value) => value[9] !== "");
+const N = database.length
 const Lists = make_data_lists()
 initialize(Lists[2])
 print_list(N)
