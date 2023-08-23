@@ -94,6 +94,7 @@ function initialize(genreList) {
 // 　フォーム生成
   let form = document.getElementById("input-form")
   form.children[1].addEventListener("click", function(){search();})
+  form.children[1].click();
 }
 
 function make_accordion(data, num) {
@@ -268,7 +269,6 @@ const database = read_csv("js/心理学単語帳v2.csv").filter((value) => value
 const N = database.length
 const Lists = make_data_lists()
 initialize(Lists[2])
-print_list(N, "", "")
 
 
 
