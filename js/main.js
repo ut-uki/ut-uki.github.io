@@ -93,7 +93,7 @@ function initialize(genreList) {
   }
 // 　フォーム生成
   let form = document.getElementById("input-form")
-  form.children[1].addEventListener("click", function(){search()})
+  form.children[1].addEventListener("click", function(){search();})
 }
 
 function make_accordion(data, num) {
