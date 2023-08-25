@@ -215,7 +215,8 @@ function print_list(n, genre="", related="", name="", important="") {
   let title_add = " (" + title.reverse().join(", ") + ")"
   title_text += title.length===0 ? "" : title_add;
   document.getElementById("page-title").textContent = title_text;
-
+  let title_count_text =  results.length + "/" + (database.length-1);
+  document.getElementById("title-count").textContent = title_count_text;
   return results
 }
 

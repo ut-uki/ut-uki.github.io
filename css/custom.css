@@ -16,6 +16,12 @@
   padding: 20px;
   min-height: calc(100vh - 56px - 62px);
 }
+.title-col {
+  margin-bottom: 0;
+}
+#title-count{
+  text-align: right;
+}
 
 .accordion{
   margin-top: 20px;
